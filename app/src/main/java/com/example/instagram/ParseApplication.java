@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import android.app.Application;
 
+import com.example.instagram.model.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -16,6 +17,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ParseObject.registerSubclass(Post.class);
 
         // Use for troubleshooting -- remove this line for production
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
@@ -33,33 +35,33 @@ public class ParseApplication extends Application {
         // any network interceptors must be added with the Configuration Builder given this syntax
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("fbu-instagram") // should correspond to APP_ID env variable
-                .clientKey(null)  // set explicitly unless clientKey is explicitly configured on Parse server
+                .clientKey("stormy-forest-instagram")  // set explicitly unless clientKey is explicitly configured on Parse server
                 .clientBuilder(builder)
                 .server("https://miajohansson9-instagram.herokuapp.com/parse/").build());
 
-        // Create the ParseUser
-        ParseUser user = new ParseUser();
-        // Set core properties
-        user.setUsername("joestevens");
-        user.setPassword("secret123");
-        user.setEmail("email@example.com");
-        // Set custom properties
-        user.put("phone", "650-253-0000");
-        // Invoke signUpInBackground
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(com.parse.ParseException e) {
-
-            }
-
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Hooray! Let them use the app now.
-                } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
-                }
-            }
-        });
+//        // Create the ParseUser
+//        ParseUser user = new ParseUser();
+//        // Set core properties
+//        user.setUsername("joestevens");
+//        user.setPassword("secret123");
+//        user.setEmail("email@example.com");
+//        // Set custom properties
+//        user.put("phone", "650-253-0000");
+//        // Invoke signUpInBackground
+//        user.signUpInBackground(new SignUpCallback() {
+//            @Override
+//            public void done(com.parse.ParseException e) {
+//
+//            }
+//
+//            public void done(ParseException e) {
+//                if (e == null) {
+//                    // Hooray! Let them use the app now.
+//                } else {
+//                    // Sign up didn't succeed. Look at the ParseException
+//                    // to figure out what went wrong
+//                }
+//            }
+//        });
     }
 }
