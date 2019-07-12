@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -66,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 if (e == null) {
                     goToFeed();
                     hideProgressBar();
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
                 } else {
+                    hideProgressBar();
+                    Toast.makeText(MainActivity.this, "Incorrect Username or Password", Toast.LENGTH_LONG).show();
                     Log.e("LoginActivity", "Login Failure");
                     e.printStackTrace();
                 }
@@ -86,11 +90,13 @@ public class MainActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    Log.d("LoginActivity", "Login Successful");
+                    Toast.makeText(MainActivity.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
                     goToFeed();
                     hideProgressBar();
                 } else {
                     Log.e("LoginActivity", "Sign Up Failure");
+                    Toast.makeText(MainActivity.this, "Sign Up Failure", Toast.LENGTH_LONG).show();
+                    hideProgressBar();
                     e.printStackTrace();
                 }
             }
