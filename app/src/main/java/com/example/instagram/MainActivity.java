@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordInput;
     private Button loginBtn;
     private Button signUpBtn;
+    MenuItem miActionProgressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password) {
+        showProgressBar();
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
                     goToFeed();
-                    finish();
+                    hideProgressBar();
                 } else {
                     Log.e("LoginActivity", "Login Failure");
                     e.printStackTrace();
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signUp(String username, String password) {
+        showProgressBar();
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 if (e == null) {
                     Log.d("LoginActivity", "Login Successful");
                     goToFeed();
+                    hideProgressBar();
                 } else {
                     Log.e("LoginActivity", "Sign Up Failure");
                     e.printStackTrace();
@@ -95,5 +101,31 @@ public class MainActivity extends AppCompatActivity {
         final Intent loginToTimeline = new Intent(MainActivity.this, FeedActivity.class);
         startActivity(loginToTimeline);
         finish();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Associate searchable configuration with the SearchView
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 }

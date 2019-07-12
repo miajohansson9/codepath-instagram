@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.format.DateUtils;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,13 +46,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Post post = fPosts.get(position);
 
-        String description = post.getDescription();
-        String username = post.getUser().getUsername();
-        ParseFile image = post.getImage();
+        final String description = post.getDescription();
+        final String username = post.getUser().getUsername();
+        final ParseFile image = post.getImage();
+        final String timestamp = getRelativeTimeAgo(post.getCreatedAt().toString());
 
         holder.tvUserName.setText(username);
         holder.tvDescription.setText(description);
-        //                        holder.timestamp.setText(getRelativeTimeAgo(tweet.createdAt));
+        holder.postImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent seePostDetails = new Intent(context, PostDetailsActivity.class);
+                seePostDetails.putExtra("imageURL", image.getUrl());
+                seePostDetails.putExtra("description", description);
+                seePostDetails.putExtra("username", username);
+                seePostDetails.putExtra("timestamp", timestamp);
+                context.startActivity(seePostDetails);
+            }
+        });
+        holder.timestamp.setText(timestamp);
 
         String url= image.getUrl();
         Glide.with(context).load(url).into(holder.postImage);
@@ -67,13 +81,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public TextView tvDescription;
 //        public TextView timestamp;
         public ImageView postImage;
+        public TextView timestamp;
 
         public ViewHolder(View itemView) {
             super(itemView);
             postImage = (ImageView) itemView.findViewById(R.id.ivPost);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUsername);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
-//            timestamp = (TextView) itemView.findViewById(R.id.timestamp);
+            timestamp = (TextView) itemView.findViewById(R.id.timeStamp);
         }
     }
 

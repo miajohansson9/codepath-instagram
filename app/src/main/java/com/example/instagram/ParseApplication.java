@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.instagram.model.Post;
 import com.parse.Parse;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;

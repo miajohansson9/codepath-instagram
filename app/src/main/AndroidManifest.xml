@@ -52,6 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity" android:theme="@style/noAnimTheme"/>
+        <activity android:name=".PostDetailsActivity" />
     </application>
 
 </manifest>
