@@ -176,6 +176,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 // Load the taken image into a preview
                 ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
+                ivPreview.setPadding(0, 50, 0, 0);
                 ivPreview.setImageBitmap(resizedBitmap);
 
                 createButton.setOnClickListener(new View.OnClickListener() {
