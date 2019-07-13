@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#72bcd4</color>
+    <color name="colorPrimaryDark">#72bcd4</color>
+    <color name="colorAccent">#72bcd4</color>
     <color name="action_bar_semi_transparent_white">#bfffffff</color>
     <color name="action_bar_transparent_background">#20000000</color>
     <color name="action_bar_transparent_background_pressed_state">#30000000</color>
